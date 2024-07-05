@@ -69,19 +69,4 @@ const logout = async (req, res) => {
     }
 };
 
-const getUserByUsername = async (req, res) => {
-    const username = req.params.username;
-    const user = await User.findOne({ username });
-    if (!user) {
-        return res.status(404).json({ "error": "User not found" });
-    }
-    return res.status(200).json({
-        "id": user._id,
-        "username": user.username,
-        "profilePic": user.profilePic,
-        "created_at": user.created_at,
-        "updated_at": user.updated_at
-    });
-}
-
-module.exports = { signup, login, logout, getUserByUsername };
+module.exports = { signup, login, logout };
