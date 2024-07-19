@@ -32,7 +32,7 @@ const signup = async (req, res) => {
         await newUser.save();
         if (newUser) {
             generateTokenAndSetCookie(newUser._id, res);
-            return res.status(201).json({ "message": "Account created successfully" });
+            return res.status(201).json({ "username": newUser.username, "profilePic": newUser.profilePic, "created_at": newUser.created_at, "updated_at": newUser.updated_at});
         } else {
             return res.status(422).json({"error": "username or email alread exists"})
         }
