@@ -1,8 +1,10 @@
 import { useState } from "react";
 import toast from 'react-hot-toast';
+import { useAuthContext } from "../contexts/AuthContext";
 
 const useSignup = () => {
     const [loading, setLoading] = useState(false);
+    const { setAuthUser } = useAuthContext();
     const signup = async ({ email, username, password, confirmPassword, gender }) => {
         const success = handleInputErrors({ email, username, password, confirmPassword, gender });
         if (!success) return;
@@ -14,7 +16,11 @@ const useSignup = () => {
                 body: JSON.stringify({ email, username, password, confirmPassword, gender })
             });
             const data = await res.json();
-            console.log(data);
+            if (data.error) {
+                throw new Error(data.error);
+            }
+            localStorage.setItem("weChat-user", JSON.stringify(data));
+            setAuthUser(data);
         } catch (error) {
             toast.error(error.message);
         } finally {
