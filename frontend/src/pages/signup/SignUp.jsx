@@ -56,7 +56,9 @@ function Signup() {
           <GenderCheckbox onCheckboxChange={ handleCheckboxChange } selectedGender={ inputs.gender } />
           <Link to="/login" className="text-w hover:underline hover:text-blue-600 mt-2 inline-block">Already have an account?</Link>
           <div>
-            <button className="btn btn-block btn-sm mt-2">signup</button>
+            <button className="btn btn-block btn-sm mt-2" disabled={loading}>
+              {loading ? <span className="loading loading-ring"></span> : "Sign Up"}
+            </button>
           </div>
         </form>
       </div>
