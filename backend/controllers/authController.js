@@ -32,7 +32,7 @@ const signup = async (req, res) => {
         await newUser.save();
         if (newUser) {
             generateTokenAndSetCookie(newUser._id, res);
-            return res.status(201).json({ "username": newUser.username, "profilePic": newUser.profilePic, "created_at": newUser.created_at, "updated_at": newUser.updated_at});
+            return res.status(201).json({ "_id": user._id, "username": newUser.username, "profilePic": newUser.profilePic, "created_at": newUser.created_at, "updated_at": newUser.updated_at});
         } else {
             return res.status(422).json({"error": "username or email alread exists"})
         }
@@ -54,7 +54,13 @@ const login = async (req, res) => {
             return res.status(400).json({"error": "Invalid username or password"})
         }
         generateTokenAndSetCookie(user._id, res);
-        return res.status(200).json({ "message": "Login successfully" });
+        return res.status(200).json({
+            "_id": user._id,
+            "username": user.username,
+            "profilePic": user.profilePic,
+            "created_at": user.created_at,
+            "updated_at": user.updated_at
+        });
     } catch (error) {
         return res.status(500).json({ "error": error.message });
     }
