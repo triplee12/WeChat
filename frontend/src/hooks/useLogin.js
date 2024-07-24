@@ -20,7 +20,6 @@ const useLogin = () => {
             if (data.error) {
                 throw new Error(data.error);
             }
-            console.log(data);
             localStorage.setItem("weChat-user", JSON.stringify(data));
             setAuthUser(data);
         } catch (error) {
