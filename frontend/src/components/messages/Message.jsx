@@ -1,5 +1,6 @@
 import { useAuthContext } from '../../contexts/AuthContext';
 import useConversation from "../../zustand/useConversation";
+import extractTime from "../../utils/extractTime";
 
 const Message = ({ message }) => {
     const { authUser } = useAuthContext();
@@ -15,8 +16,8 @@ const Message = ({ message }) => {
                     <img src={profilePic} alt="chat profile image" />
                 </div>
             </div>
-            <div className={`chat-bubble text-white ${msgBgColor}`}>{message.message}</div>
-            <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">09:00</div>
+            <div className={`chat-bubble text-white ${msgBgColor} pb-2`}>{message.message}</div>
+            <div className="chat-footer opacity-50 text-xs flex gap-1 items-center">{extractTime(message.createdAt)}</div>
         </div>
     )
 }
