@@ -6,10 +6,9 @@ const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
 const messageRouter = require("./routes/messageRoutes");
 const connectToMongoDB = require("./db/mongodbConfig");
+const { app, server } = require("./socket/socket");
 dotenv.config()
 
-
-const app = express();
 app.use(express.json());
 app.use(cookieParser());
 
@@ -23,7 +22,7 @@ app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/messages", messageRouter);
 
-app.listen(PORT, () => {
+server.listen(PORT, () => {
     connectToMongoDB();
     console.log(`Server is running on port ${PORT}`);
 });
